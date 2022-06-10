@@ -9,13 +9,17 @@ function deliveryMethod() {
 }
 
 function shipWeight() {
-  return parseInt(
-    document.getElementById("weight") /* @type {HTMLDivElement} */.innerHTML,
-  )
+  return parseInt(document.getElementById("weight").innerHTML)
 }
+
+/**
+ *
+ * @param {(string | string[])} emailAddr
+ */
 
 function sendUpdates(emailAddr) {
   // string or string array
+
   function sendEmail(addr) {
     console.log(
       `Shipping to ${addr} via ${deliveryMethod() | "standard"} delivery`,
@@ -33,3 +37,5 @@ function sendUpdates(emailAddr) {
     sendEmail(emailAddr.trim())
   }
 }
+
+sendUpdates(1)
