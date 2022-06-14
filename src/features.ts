@@ -15,7 +15,7 @@ async function* getItemsRealySlow<T>(
   }
 }
 
-async function speakSloth(items: string) {
+export async function speakSloth(items: string[]) {
   for await (const item of getItemsRealySlow(items)) {
     console.log(item)
   }
