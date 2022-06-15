@@ -1,34 +1,42 @@
 /* eslint-disable no-unused-vars */
 
-const sn: string | number = 22
-const user: { name: string } & { age: number } = { name: "Igor", age: 45 }
+interface IFn {
+  (x: number, y: number): number
+}
+type Fn = (x: number, y: number) => number // алиас
+const fn: { (x: number, y: number): number } = (x: number, y: number) => {
+  return x + y
+}
+const fn1: IFn = (x: number, y: number) => {
+  return x + y
+}
+const fn2: Fn = (x: number, y: number) => {
+  return x + y
+}
+let fn3: (x: number, y: number) => number
 
-interface IStudent {
-  id: string
-  name: string
-  lectures: string[]
+type PointX = { x: number }
+interface PointY {
+  y: number
 }
-interface ITeacher {
-  id: number
-  name: string
-  lessons: string[]
+type Point = PointX & PointY
+interface Ipoint extends PointX, PointY {}
+const p1: Point = {
+  x: 1,
+  y: 2,
 }
-function getSubjects(person: ITeacher | IStudent) {
-  if ("lessons" in person) {
-    return person.lessons
-  }
-  return person.lectures
+const p2: Ipoint = {
+  x: 1,
+  y: 2,
 }
 
-type worker = {
-  id: string
-  salary?: number
-  info: {
-    male: boolean
-  }
+const shpoint: Points = {
+  x: 55,
+  // Property 'y' is missing in type '{ x: number; }' but required in type 'Points'
 }
-type toff = {
-  id: number
-  name: string
-  skill: []
-} & worker
+interface Points {
+  x: number
+}
+interface Points {
+  y: number
+}
