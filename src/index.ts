@@ -1,21 +1,37 @@
 /* eslint-disable no-unused-vars */
 
-const anyType: any = null
-anyType.a = 78
-anyType["a"] = "ghj"
-anyType()
+const user: {
+  readonly firstName: string
+  readonly age?: number // ? - необязательное поле
+} = {
+  firstName: "Igor",
+}
+user.age = 33
 
-let objType: Object = { a: 1 }
-objType.a = 1
-objType = {}
-objType()
-objType = 1
-Object.create(objType)
+const booleanMap: {
+  [userName: string]: typeof user
+} = {
+  Igor: {
+    firstName: "Igor",
+  },
+}
 
-let unkType: unknown = null
-unkType.a = 78
-unkType["a"] = "ghj"
-unkType = null
+const arr: Array<number> = []
+const arr1: number[] = []
+const arr2: number[][] = [
+  [1, 2, 3],
+  [4, 5, 6],
+]
+// arr2 && arr3 эквивалентные записи
+const arr3: typeof arr[] = [
+  [1, 2, 3],
+  [4, 5, 6],
+]
+const arr4: ReadonlyArray<number> = [1, 2, 3]
+arr4[50] = 34
+arr4.push(12)
 
-let voidType: void = undefined // undefined || null
-voidType = undefined
+const arr5: [number, string, typeof user] = [1, "one", { firstName: "Igor" }]
+arr5.push(3) // баг
+
+const arr6 = [1, 2, 3] as const // аналогично ReadonlyArray<number>
