@@ -1,42 +1,56 @@
 /* eslint-disable no-unused-vars */
 
-interface IFn {
-  (x: number, y: number): number
-}
-type Fn = (x: number, y: number) => number // алиас
-const fn: { (x: number, y: number): number } = (x: number, y: number) => {
-  return x + y
-}
-const fn1: IFn = (x: number, y: number) => {
-  return x + y
-}
-const fn2: Fn = (x: number, y: number) => {
-  return x + y
-}
-let fn3: (x: number, y: number) => number
+// interfaces, alias, functions, classes - можем обобщать
 
-type PointX = { x: number }
-interface PointY {
-  y: number
+interface IAccount<ID> {
+  // <ID> - дженерик
+  id: ID
+  name: string
+  info: {
+    male: true
+  }
 }
-type Point = PointX & PointY
-interface Ipoint extends PointX, PointY {}
-const p1: Point = {
-  x: 1,
-  y: 2,
+const admin: IAccount<string> = {
+  id: "asd",
+  name: "Igor",
+  info: {
+    male: true,
+  },
 }
-const p2: Ipoint = {
-  x: 1,
-  y: 2,
+const user: IAccount<number> = {
+  id: 45,
+  name: "Vlad",
+  info: {
+    male: true,
+  },
 }
 
-const shpoint: Points = {
-  x: 55,
-  // Property 'y' is missing in type '{ x: number; }' but required in type 'Points'
+interface IMyAccount<ID extends string | number> {
+  id: ID
+  name: string
 }
-interface Points {
-  x: number
+const muser: IMyAccount<boolean> = {
+  // Type 'boolean' does not satisfy the constraint 'string | number'
+  id: true,
+  name: "Cic",
 }
-interface Points {
-  y: number
+
+interface IFirstAccount<GeneralInfo extends { male: boolean }, ID = string> {
+  id: ID
+  name: string
+  info: GeneralInfo
 }
+const firstAdmin: IFirstAccount<{ email: string; male: boolean }> = {
+  id: "asd",
+  name: "Fgh",
+  info: {
+    male: true,
+    email: "asd@asd.ru",
+  },
+}
+
+function getProperty<Obj, Key extends keyof Obj>(obj: Obj, key: Key) {
+  return obj[key]
+}
+const key = "name"
+getProperty(muser, key)
