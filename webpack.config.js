@@ -12,7 +12,10 @@ module.exports = {
     extensions: [".ts", ".js", ".json"],
   },
   module: {
-    rules: [{ test: /\.ts$/, loader: "ts-loader" }],
+    rules: [
+      { test: /\.ts$/, loader: "ts-loader" },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
