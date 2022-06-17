@@ -1,14 +1,33 @@
-import { list } from "./data"
-import { generateMenu } from "./menu"
-import "./styles.css"
+function average(a: number, b: number, c: number): string {
+  const avg: number = (a + b + c) / 3
+  return `Average is ${avg}`
+}
+average(1) // An argument for 'b' was not provided.
+average(1, 2, "fg") // Argument of type 'string' is not assignable to parameter of type 'number'
 
-const navMenu = document.querySelector(".menu") as HTMLDivElement
-navMenu.innerHTML = generateMenu(list)
-navMenu.addEventListener("click", (event: MouseEvent) => {
-  const el: HTMLElement = event.target as HTMLElement
-  if (!el.classList.contains("title")) {
-    return
+function getAverage(a: number, b?: number, c?: number): string {
+  if (b === undefined) {
+    b = 0
   }
-  const parentLi: HTMLLIElement = el.parentNode as HTMLLIElement
-  parentLi.classList.toggle("menu-open")
-})
+  if (c === undefined) {
+    c = 0
+  }
+  const avg: number = (a + b + c) / 3
+  return `Average is ${avg}`
+}
+getAverage(1)
+getAverage(1, 2)
+
+function argsAverage(...args: (string | number)[]): string {
+  let total: number = 0
+  for (const item of args) {
+    if (typeof item === "string") {
+      total += Number(item)
+      continue
+    }
+    total += item
+  }
+  const avg: number = total / args.length
+  return `${avg}`
+}
+argsAverage(2, 4, 5, 6, 7, 8)
